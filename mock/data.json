@@ -1,0 +1,31 @@
+{
+    "users": [
+        {
+            "password": "fly",
+            "name": "肥飛猫",
+            "avatar": "avatars:svg-1",
+            "email": "zishaofei-221@163.com",
+            "id": "37489e0c-df34-c261-71c4-ce75357e3035",
+            "projectIds": [
+                "Sk2HaTagb",
+                "Hya1moGb-"
+            ],
+            "roles": [
+                "Manager"
+            ]
+        },
+        {
+            "password": "8888",
+            "name": "李四",
+            "avatar": "avatars:svg-2",
+            "email": "603877038@qq.com",
+            "id": "37489e0c-df34-c261-71c4-ce75357e3036",
+            "projectIds": [
+                "Sk2HaTagb"
+            ],
+            "roleIds": [
+                "Visitor"
+            ]
+        }
+    ]
+}

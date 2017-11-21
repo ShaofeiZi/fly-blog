@@ -1,0 +1,10 @@
+@import "../../../../assets/style/variables";
+.footer{
+  height: 30px;
+  background-color: $headerBgColor;
+  .text{
+    line-height: 30px;
+    text-align: center;
+    color: $backfontcolor;
+  }
+}

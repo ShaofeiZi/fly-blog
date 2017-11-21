@@ -1,0 +1,56 @@
+<!-- <div class="fly-login"> Hello flyLoginComponent! </div>
+{{ 'hello' | translate }} -->
+<!--<div style="width: 467px;-->
+<!--background-color: red;-->
+<!--height: 43px;-->
+<!--font-family: Georgia;-->
+<!--font-size: 38px;-->
+<!--font-weight: bold;-->
+<!--font-style: italic;-->
+<!--letter-spacing: 1.9px;-->
+<!--text-align: center;-->
+<!--color: #ffffff;">-->
+<!--Sign in to fly’s ePay-->
+<!--</div>-->
+<div class="fly-login">
+  <fly-login-header style="flex: 0 0 123px;"></fly-login-header>
+  <div class="main" [ngStyle]="bgimg">
+    <div class="dialogue">
+      <div class="title">
+        Sign in
+      </div>
+      <div class="content">
+        <form class="form" [formGroup]="form" (ngSubmit)="onSubmit(form, $event)">
+          <div class="ui-g-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </span>
+              <input (keydown.enter)="login()" formControlName="email"
+                     class="ui-inputtext ui-corner-all ui-state-default ui-widget  ui-state-filled " type="text"
+                     pInputText placeholder="Username">
+            </div>
+          </div>
+
+          <div class="ui-g-12">
+            <div class="ui-inputgroup">
+              <span class="ui-inputgroup-addon">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+              </span>
+              <input (keydown.enter)="login()" formControlName="password" type="password" pPassword
+                     placeholder="password"/>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="submit">
+        <button pButton type="button" (click)="login()" label="登入" class="ui-button-success" [disabled]="form.invalid"></button>
+        <button pButton type="button" (click)="reset()" label="{{'重置'|translate}}"></button>
+      </div>
+
+    </div>
+  </div>
+  <fly-footer></fly-footer>
+
+</div>
