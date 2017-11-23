@@ -1,6 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-// const route = require('./api/index.js')
+const route = require('./api/index.js')
 const mail = require('./email')
 const app = express()
 
@@ -8,7 +8,7 @@ app.set('port', (process.env.port || 3003))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-// route(app)
+route(app)
 
 // 发送邮件通知站长
 app.post('/api/mail', (req, res) => {
@@ -24,8 +24,8 @@ app.post('/api/mail', (req, res) => {
     <a href="https://www.xxx.cn" style="text-decoration: none; background: lightgreen;color: #fff; height: 2rem; line-height: 2rem; padding: 0 1rem; display: inline-block; border-radius: 0.2rem;">回到博客</a>
     </div>
     `
-    mail.send('603877038@qq.com', '您的博客有一条新留言', content, res)
-    res.status(200).send('send email successfully');
+    mail.send(req.body.address, '您的博客有一条新留言', content, res)
+    res.status(200).send('发送邮件通知站长成功');
 })
 
 app.listen(app.get('port'), function () {

@@ -1,18 +1,21 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const data = require('./data')
-const sha1 = require('sha1')
-const rand = require('csprng')
-const Sequence = require('./sequence')
-
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const data = require('./data');
+const sha1 = require('sha1');
+const rand = require('csprng');
+const Sequence = require('./sequence');
+// 用原生的Promise代替mongoose的Promise
+mongoose.Promise = global.Promise;
 const UserSchema = new Schema(
     {
         name: String,
         password: String,
         salt: String            // 使用csprng随机生成的盐
     },
-    { versionKey: false }
-)
+    {
+        versionKey: false
+    }
+);
 
 const ArticleSchema = new Schema(
     {
@@ -25,7 +28,7 @@ const ArticleSchema = new Schema(
         comment_n: Number
     },
     { versionKey: false }
-)
+);
 const CommentSchema = new Schema(
     {
         imgName: String,
@@ -37,7 +40,7 @@ const CommentSchema = new Schema(
         like: Number
     },
     { versionKey: false }
-)
+);
 
 // 生成从0开始自增长的文章aid
 ArticleSchema.pre('save', function (next) {
@@ -52,17 +55,17 @@ ArticleSchema.pre('save', function (next) {
     } else {
         next();
     }
-})
+});
 
-const Models = {
+Models = {
     User: mongoose.model('User', UserSchema),
     Article: mongoose.model('Article', ArticleSchema),
     Comment: mongoose.model('Comment', CommentSchema)
-}
+};
 
 // 初始化数据
 const initialize = () => {
-    console.log('开始初始化数据…')
+    console.log('开始初始化数据…');
     Models.User.find({}, (err, doc) => {
         if (err) {
             console.log(err)
@@ -70,24 +73,22 @@ const initialize = () => {
         } else if (!doc.length) {
             const salt = rand(160, 36)
             // 第一次创建站长账户
-            new Models['User']({ name: 'boss', password: sha1('123456' + salt), salt: salt }).save()
-            Promise.all(data.map((item) => { new Models['Article'](item).save() }))
-                .then(() => { console.log('初始化完成') })
-                .catch(() => { console.log('初始化失败') })
+            new Models['User']({ name: 'fly', password: sha1('123456' + salt), salt: salt }).save()
+            Promise.all(data.map((item) => { new Models['Article'](item).save() })).then(() => { console.log('初始化完成') }).catch(() => { console.log('初始化失败') })
         } else {
             console.log('初始化完成')
         }
     })
-}
+};
 
-mongoose.connect('mongodb://127.0.0.1/my-blog')
+mongoose.connect('mongodb://127.0.0.1/my-blog');
 
-const db = mongoose.connection
+const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'Database connection error.'));
+db.on('error', console.error.bind(console, '数据库连接错误.'));
 db.once('open', () => {
-    console.log('The database has connected.')
+    console.log('数据库已连接.');
     initialize()
 });
 
-module.exports = Models
+module.exports = Models;

@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// import { AuthorizationService } from '../../../service/core/authorization';
 
-import { error } from 'util';
 
+import { Login } from '../../viewModel/login.model';
 @Component({
 	selector: 'fly-login',
 	templateUrl: 'fly-login.component.html',
@@ -12,6 +12,10 @@ import { error } from 'util';
 })
 
 export class FlyLoginComponent implements OnInit, AfterViewInit {
+	loginModel: Login = {
+		name: '',
+		password: ''
+	};
 	form: FormGroup;
 	password: String = '';
 	imgUrl: String = 'https://cn.bing.com//az/hprichbg/rb/PupsPlayGalapagos_ZH-CN8090325795_1920x1080.jpg';
@@ -20,7 +24,7 @@ export class FlyLoginComponent implements OnInit, AfterViewInit {
 		'background-image': `url(${this.imgUrl})`,
 		'background-size': 'cover'
 	};
-	constructor(private fb: FormBuilder, private http: HttpClient) {
+	constructor(private fb: FormBuilder) {
 		this.form = this.fb.group({
 			email: ['', Validators.compose([Validators.required, Validators.email])],
 			password: ['', Validators.required]
@@ -39,6 +43,11 @@ export class FlyLoginComponent implements OnInit, AfterViewInit {
 		if (this.form.invalid) {
 			return;
 		}
+		console.log(this.form.value);
+		// this.authorizationService.login(this.loginModel).subscribe(
+
+		// );
+
 
 	}
 

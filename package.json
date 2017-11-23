@@ -8,8 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "mockserver": "json-server --watch mock/data.json --port 6788",
-    "start": "concurrently \"ng serve --hmr --port=6789\" \"npm run mockserver\""
+    "server": "node ./server/app.js",
+    "mockserver": "json-server --watch mock/data.json --port 3003",
+    "mock": "concurrently \"ng serve --hmr --port=6789\" \"npm run mockserver\"",
+    "start": "concurrently \"ng serve --hmr --port=6789\" \"npm run server\""
   },
   "private": true,
   "dependencies": {
